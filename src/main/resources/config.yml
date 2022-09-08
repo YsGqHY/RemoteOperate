@@ -1,13 +1,19 @@
+# 为了判断是否为第一次启动并提醒更改下方的数据库信息, 配置完后一定要改成 false.
 first: true
+# 数据库配置
 database:
   host: localhost
   port: 3306
   user: root
   password: password
   database: minecraft
+# 当有下一页的时候, ItemsAdder 图标
 iahasnext: "icon_next_orange"
+# 没有下一页时
 iahasback: "icon_back_orange"
+# 有上一页时
 ianonext: "icon_next_white"
+# 没有上一页时
 ianoback: "icon_back_white"
 
 # 标题
@@ -26,27 +32,36 @@ template:
 # 生物不存在或已死亡
 died:
   - "&c已死亡或已消失"
-# 以上的全局变量: {type} 类型名 {name} 玩家取的名 {world} {x} {y} {z} 位置 (标题和 died 没有)
+# 以上都可以用 PlaceholderAPI 变量, 同时提供的全局变量有: {type} 类型名 {name} 玩家取的名 {world} {x} {y} {z} 位置 (标题和 died 没有)
 config:
+  # 全局配置
   all:
+    # 玩家输入 /remote create 创建时
     create:
+      # 所需条件
       condition: "check papi *%cmi_user_balance% >= *123"
+      # 符合条件执行的动作
       actions:
         - 'tell *"你花费 123 金币成功存储"'
+      # 不符合时执行
       deny:
         - 'tell *"你的金钱不足"'
+    # 玩家在 /remote open 界面时左键打开时
     open:
       condition: "check papi *%cmi_user_balance% >= *123"
       actions:
         - 'tell *"你花费 123 金币成功打开"'
       deny:
         - 'tell *"你的金钱不足"'
+    # 玩家在 /remote open 界面时右键删除时
     delete:
       condition: "check papi *%cmi_user_balance% >= *123"
       actions:
         - 'tell *"你花费 123 金币成功删除"'
       deny:
         - 'tell *"你的金钱不足"'
+  # 对于箱子的单独的配置, 与全局叠加, 需同时满足全局和这个, 判断时会先判断全局是否符合条件.
+  # 这里其实可以写一个玩家永远达不到的条件来取消掉这个物品, 让玩家无法创建这个, 例如 check papi *%cmi_user_balance% > *9999999999
   CHEST:
     create:
       condition: "check papi *%cmi_user_balance% >= *123"

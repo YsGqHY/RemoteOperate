@@ -68,20 +68,33 @@ object RemoteCommand {
                     }
                     if (resBypass) {
                         if (block.checkLocker(user)) {
-                            if (RemoteAPI.check(user, block.type.name, "create")) {
-                                ConfigReader.conditions[block.type.name]?.get("create")?.actions?.forEach {
+                            if (RemoteAPI.check(user, "all", "create")) {
+                                ConfigReader.conditions["all"]?.get("create")?.actions?.forEach {
                                     RemoteAPI.eval(
                                         user, it.replacePlaceholder(user)
                                     )
                                 }
-                                user.addRemote(
-                                    Remote(
-                                        name, RemoteType.valueOf(block.type.name), block.location.parseString()
+                                if (RemoteAPI.check(user, block.type.name, "create")) {
+                                    ConfigReader.conditions[block.type.name]?.get("create")?.actions?.forEach {
+                                        RemoteAPI.eval(
+                                            user, it.replacePlaceholder(user)
+                                        )
+                                    }
+                                    user.addRemote(
+                                        Remote(
+                                            name, RemoteType.valueOf(block.type.name), block.location.parseString()
+                                        )
                                     )
-                                )
-                                user.sendLang("Success")
+                                    user.sendLang("Success")
+                                } else {
+                                    ConfigReader.conditions[block.type.name]?.get("create")?.deny?.forEach {
+                                        RemoteAPI.eval(
+                                            user, it.replacePlaceholder(user)
+                                        )
+                                    }
+                                }
                             } else {
-                                ConfigReader.conditions[block.type.name]?.get("create")?.deny?.forEach {
+                                ConfigReader.conditions["all"]?.get("create")?.deny?.forEach {
                                     RemoteAPI.eval(
                                         user, it.replacePlaceholder(user)
                                     )
@@ -104,14 +117,40 @@ object RemoteCommand {
                         else -> entity.location.checkResidence(user, Flags.admin)
                     }
                     if (resBypass) {
-                        user.addRemote(
-                            Remote(
-                                name,
-                                RemoteType.valueOf(entity.type.name),
-                                rayTraceResult.hitEntity!!.uniqueId.toString()
-                            )
-                        )
-                        user.sendLang("Success")
+                        if (RemoteAPI.check(user, "all", "create")) {
+                            ConfigReader.conditions["all"]?.get("create")?.actions?.forEach {
+                                RemoteAPI.eval(
+                                    user, it.replacePlaceholder(user)
+                                )
+                            }
+                            if (RemoteAPI.check(user, entity.type.name, "create")) {
+                                ConfigReader.conditions[entity.type.name]?.get("create")?.actions?.forEach {
+                                    RemoteAPI.eval(
+                                        user, it.replacePlaceholder(user)
+                                    )
+                                }
+                                user.addRemote(
+                                    Remote(
+                                        name,
+                                        RemoteType.valueOf(entity.type.name),
+                                        rayTraceResult.hitEntity!!.uniqueId.toString()
+                                    )
+                                )
+                                user.sendLang("Success")
+                            } else {
+                                ConfigReader.conditions[entity.type.name]?.get("create")?.deny?.forEach {
+                                    RemoteAPI.eval(
+                                        user, it.replacePlaceholder(user)
+                                    )
+                                }
+                            }
+                        } else {
+                            ConfigReader.conditions["all"]?.get("create")?.deny?.forEach {
+                                RemoteAPI.eval(
+                                    user, it.replacePlaceholder(user)
+                                )
+                            }
+                        }
                     } else {
                         user.sendLang("Residence")
                     }
