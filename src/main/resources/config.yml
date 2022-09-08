@@ -1,0 +1,68 @@
+first: true
+database:
+  host: localhost
+  port: 3306
+  user: root
+  password: password
+  database: minecraft
+iahasnext: "icon_next_orange"
+iahasback: "icon_back_orange"
+ianonext: "icon_next_white"
+ianoback: "icon_back_white"
+
+# 标题
+title: "你的远程列表 (左键打开, 右键移除) #%p"
+# 物品名
+name: "&f{type}: {name}"
+# 模版
+template:
+  - " "
+  - " &7位于 ▶"
+  - "   &f世界: &e{world}"
+  - "   &fX: &e{x}"
+  - "   &fY: &e{y}"
+  - "   &fZ: &e{z}"
+  - " "
+# 生物不存在或已死亡
+died:
+  - "&c已死亡或已消失"
+# 以上的全局变量: {type} 类型名 {name} 玩家取的名 {world} {x} {y} {z} 位置 (标题和 died 没有)
+config:
+  all:
+    create:
+      condition: "check papi *%cmi_user_balance% >= *123"
+      actions:
+        - 'tell *"你花费 123 金币成功存储"'
+      deny:
+        - 'tell *"你的金钱不足"'
+    open:
+      condition: "check papi *%cmi_user_balance% >= *123"
+      actions:
+        - 'tell *"你花费 123 金币成功打开"'
+      deny:
+        - 'tell *"你的金钱不足"'
+    delete:
+      condition: "check papi *%cmi_user_balance% >= *123"
+      actions:
+        - 'tell *"你花费 123 金币成功删除"'
+      deny:
+        - 'tell *"你的金钱不足"'
+  CHEST:
+    create:
+      condition: "check papi *%cmi_user_balance% >= *123"
+      actions:
+        - 'tell *"你花费 123 金币成功存储"'
+      deny:
+        - 'tell *"你的金钱不足"'
+    open:
+      condition: "check papi *%cmi_user_balance% >= *123"
+      actions:
+        - 'tell *"你花费 123 金币成功打开"'
+      deny:
+        - 'tell *"你的金钱不足"'
+    delete:
+      condition: "check papi *%cmi_user_balance% >= *123"
+      actions:
+        - 'tell *"你花费 123 金币成功删除"'
+      deny:
+        - 'tell *"你的金钱不足"'

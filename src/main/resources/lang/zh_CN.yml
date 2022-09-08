@@ -1,0 +1,8 @@
+Success: "&r[ &e远程操作 &r] &a已成功添加!"
+NullTarget: "&r[ &e远程操作 &r] &e您必须指向一个箱子、工作台、熔炉或是一只村民!"
+IllegalName: "&r[ &e远程操作 &r] &c名字不符合规范!"
+VillagerDied: "&r[ &e远程操作 &r] &c村民已死亡!"
+VillagerIsTrading: "&r[ &e远程操作 &r] &e村民正在与其他玩家交易!"
+Residence: "&r[ &e远程操作 &r] &c你没有该领地的权限!"
+BlockLocker: "&r[ &e远程操作 &r] &e该箱子已经被锁!"
+Deleted: "&r[ &e远程操作 &r] &e已成功删除!"
