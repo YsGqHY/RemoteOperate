@@ -14,6 +14,7 @@ taboolib {
         dependencies {
             name("BlockLocker").optional(true)
             name("Residence").optional(true)
+            name("ItemsAdder").optional(true)
         }
     }
 
