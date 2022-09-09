@@ -17,7 +17,7 @@ object RemoteAPI {
     @JvmStatic
     fun eval(player: Player, script: String) {
         try {
-            KetherShell.eval(script, namespace = listOf("aghstreasure")) {
+            KetherShell.eval(script, namespace = listOf("remoteoperate")) {
                 sender = adaptPlayer(player)
             }
         } catch (e: LocalizedException) {
